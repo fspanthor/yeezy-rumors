@@ -1,6 +1,9 @@
 const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const { buildSchema } = require("graphql");
+const path = require("path");
+
+const env = process.env.NODE_ENV;
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
@@ -16,6 +19,10 @@ const root = {
 
 const app = express();
 const PORT = 4000;
+
+// send static client files here when in prod
+env === "production" &&
+  app.use(express.static(path.resolve(__dirname, "../client/public")));
 
 app.use(
   "/graphql",
