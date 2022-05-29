@@ -1,41 +1,38 @@
 const path = require("path");
 const ESLintPlugin = require("eslint-webpack-plugin");
-
-module.exports = (env) => {
-  return {
-    mode: "none",
-    entry: "./src/index.js",
-    output: {
-      path: __dirname + "/public",
-      filename: "bundle.js",
+module.exports = {
+  mode: "none",
+  entry: "./src/index.js",
+  output: {
+    path: __dirname + "/public",
+    filename: "bundle.js",
+  },
+  devServer: {
+    static: {
+      directory: path.join(__dirname, "public"),
     },
-    devServer: {
-      static: {
-        directory: path.join(__dirname, "public"),
+    compress: true,
+    port: 9000,
+    open: true,
+  },
+  devtool: "eval-cheap-source-map",
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ["style-loader", "css-loader"],
       },
-      compress: true,
-      port: 9000,
-      open: true,
-    },
-    ...(env.WEBPACK_SERVE === true && { devtool: "eval-cheap-source-map" }),
-    module: {
-      rules: [
-        {
-          test: /\.css$/,
-          use: ["style-loader", "css-loader"],
-        },
-        {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env"],
-            },
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
           },
         },
-      ],
-    },
-    plugins: [new ESLintPlugin()],
-  };
+      },
+    ],
+  },
+  plugins: [new ESLintPlugin()],
 };
