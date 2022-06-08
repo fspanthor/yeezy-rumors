@@ -50,13 +50,13 @@ type Mutation {
 }
 
 type Query {
-  hello: [test],
+  rumors: [rumor],
 }
 
-type test {
+type rumor {
   id: Int,
-  name: String,
-  email: String,
+  rumor_content: String,
+  created_at: String,
 }
 `);
 
@@ -72,8 +72,8 @@ class Message {
 var fakeDatabase = {};
 
 const root = {
-  hello: () => {
-    return db.getUsers();
+  rumors: () => {
+    return db.getRumors();
   },
   input: ({ input }) => {
     console.log("input: ", input);
@@ -107,8 +107,8 @@ app.use(
   })
 );
 
-app.get("/users", db.getUsers);
-app.post("/users", db.createUser);
+// app.get("/users", db.getUsers);
+// app.post("/users", db.createUser);
 
 app.listen(PORT, (error) => {
   if (!error)

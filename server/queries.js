@@ -3,13 +3,13 @@ const Pool = require("pg").Pool;
 const pool = new Pool({
   user: "me",
   host: "localhost",
-  database: "api",
+  database: "yeezy_rumors_dev",
   password: "password",
   port: 5432,
 });
 
-const getUsers = async (request, response) => {
-  const res = await pool.query("SELECT * FROM users ORDER BY id ASC");
+const getRumors = async () => {
+  const res = await pool.query("SELECT * FROM rumors ORDER BY id ASC");
   return res.rows;
 };
 
@@ -33,6 +33,6 @@ const createUser = (request, response) => {
 };
 
 module.exports = {
-  getUsers,
+  getRumors,
   createUser,
 };
