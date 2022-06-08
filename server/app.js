@@ -1,13 +1,20 @@
 const express = require("express");
 const { graphqlHTTP } = require("express-graphql");
 const { buildSchema } = require("graphql");
+const { Server } = require("socket.io");
+const { createServer } = require("http");
 const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./queries");
+
 const env = process.env.NODE_ENV;
 const app = express();
+const http = require("http");
 const PORT = 4000;
+
+const server = http.createServer(app);
+const io = new Server(server);
 
 app.use(
   cors({
@@ -21,6 +28,10 @@ app.use(
     extended: true,
   })
 );
+
+io.on("connection", (socket) => {
+  console.log("socket id: ", socket.id);
+});
 
 // send static client files here when in prod
 env === "production" &&
@@ -74,7 +85,7 @@ app.use(
   })
 );
 
-app.listen(PORT, (error) => {
+server.listen(PORT, (error) => {
   if (!error) console.log("App listening on port: " + PORT);
   else console.log("Error occurred: ", error);
 });

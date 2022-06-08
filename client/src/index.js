@@ -1,4 +1,5 @@
 import "./style.css";
+const { io } = require("socket.io-client");
 
 //const env = process.env.NODE_ENV;
 const env = "development";
@@ -7,6 +8,12 @@ const serverAddress =
   env === "development"
     ? "http://localhost:4000"
     : "https://flea-market-game.herokuapp.com/api";
+
+const socket = io(serverAddress, { transports: ["websocket"] });
+
+socket.on("connect", () => {
+  console.log("socket id: ", socket.id);
+});
 
 const getRumors = async () => {
   const response = await fetch(`${serverAddress}/graphql`, {
