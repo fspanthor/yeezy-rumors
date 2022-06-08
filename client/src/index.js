@@ -23,46 +23,32 @@ const getRumors = () => {
     .then((data) => console.log("data returned:", data));
 };
 
-//var author = "andy";
-var content = "hope is a good thing";
-var query = `mutation CreateMessage($input: MessageInput) {
-  createMessage(input: $input) {
+const query = `mutation CreateRumor($input: RumorInput) {
+  createRumor(input: $input) {
     id
   }
 }`;
 
-// const post = (input) => {
-//   console.log(input);
-//   fetch(`${serverAddress}/graphql`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//     body: JSON.stringify({ query, variables: { input } }),
-//   });
-// };
-
-const post = (author) => {
-  console.log(author);
-  fetch(`${serverAddress}/graphql`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      query,
-      variables: {
-        input: {
-          author,
-          content,
-        },
+const createRumor = (content) => {
+  if (content.length > 0) {
+    fetch(`${serverAddress}/graphql`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-    }),
-  })
-    .then((r) => r.json())
-    .then((data) => console.log("data returned:", data));
+      body: JSON.stringify({
+        query,
+        variables: {
+          input: {
+            content,
+          },
+        },
+      }),
+    })
+      .then((r) => r.json())
+      .then((data) => console.log("data returned:", data));
+  }
 };
 
 const button = document.getElementById("get-users");
@@ -71,9 +57,7 @@ const input = document.getElementById("input");
 
 button.addEventListener("click", getRumors);
 inputForm.addEventListener("submit", (e) => {
-  //post(input.value);
-  post(input.value);
+  createRumor(input.value);
   e.preventDefault();
   inputForm.reset();
-  console.log("submit");
 });

@@ -29,65 +29,44 @@ env === "production" &&
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
-input dataInput {
-  name: String,
-  email: String
-}
+scalar Date
 
-input MessageInput {
-  content: String
-  author: String
-}
-
-type Message {
-  id: ID!
-  content: String
-  author: String
+type Query {
+  rumors: [Rumor],
 }
 
 type Mutation {
-  createMessage(input: MessageInput): Message
+  createRumor(input: RumorInput): Rumor
 }
 
-type Query {
-  rumors: [rumor],
-}
-
-type rumor {
+type Rumor {
   id: Int,
   rumor_content: String,
-  created_at: String,
+  created_at: Date,
+}
+
+input RumorInput {
+  content: String
 }
 `);
-
-// If Message had any complex fields, we'd put them on this object.
-class Message {
-  constructor(id, { content, author }) {
+class Rumor {
+  constructor(id, { content }) {
     this.id = id;
     this.content = content;
     this.author = author;
   }
 }
-// Maps username to content
-var fakeDatabase = {};
 
 const root = {
   rumors: () => {
     return db.getRumors();
   },
-  input: ({ input }) => {
-    console.log("input: ", input);
-    db.createUser({ name: "z", email: "zz" });
-    return "z";
-  },
 
-  createMessage: ({ input }) => {
-    console.log("hi: ", input);
-    const { content, author } = input;
-    console.log("content: ", content);
-    console.log("author: ", author);
-
-    db.createUser({ name: content, email: author });
+  createRumor: ({ input }) => {
+    const { content } = input;
+    if (content.length > 0) {
+      db.createRumor({ rumorContent: content });
+    }
     //Create a random id for our "database".
 
     // var id = require("crypto").randomBytes(10).toString("hex");
@@ -106,9 +85,6 @@ app.use(
     graphiql: true,
   })
 );
-
-// app.get("/users", db.getUsers);
-// app.post("/users", db.createUser);
 
 app.listen(PORT, (error) => {
   if (!error)

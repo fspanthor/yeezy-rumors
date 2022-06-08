@@ -9,30 +9,16 @@ const pool = new Pool({
 });
 
 const getRumors = async () => {
-  const res = await pool.query("SELECT * FROM rumors ORDER BY id ASC");
+  const res = await pool.query("SELECT * FROM rumors ORDER BY id DESC");
   return res.rows;
 };
 
-// const createUser = (request, response) => {
-//   const { name, email } = request;
-//   pool.query(
-//     "INSERT INTO users (name, email) VALUES ($1, $2)",
-//     [name, email],
-//     (error, results) => {
-//       if (error) {
-//         throw error;
-//       }
-//       response.status(201).send(`User added with ID: ${results.insertId}`);
-//     }
-//   );
-// };
-
-const createUser = (request, response) => {
-  const { name, email } = request;
-  pool.query("INSERT INTO users (name, email) VALUES ($1, $2)", [name, email]);
+const createRumor = (request, response) => {
+  const { rumorContent } = request;
+  pool.query("INSERT INTO rumors (rumor_content) VALUES ($1)", [rumorContent]);
 };
 
 module.exports = {
   getRumors,
-  createUser,
+  createRumor,
 };
