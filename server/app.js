@@ -43,6 +43,10 @@ app.use(
 
 io.on("connection", (socket) => {
   console.log("socket id: ", socket.id);
+
+  socket.on("rumor-added", () => {
+    io.emit("new-rumor-detected");
+  });
 });
 
 // send static client files here when in prod
