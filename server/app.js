@@ -3,6 +3,7 @@ const { graphqlHTTP } = require("express-graphql");
 const { buildSchema } = require("graphql");
 const { Server } = require("socket.io");
 const { createServer } = require("http");
+const { instrument } = require("@socket.io/admin-ui");
 const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -14,11 +15,22 @@ const http = require("http");
 const PORT = 4000;
 
 const server = http.createServer(app);
-const io = new Server(server);
 
+//set cors here to allow admin dashboard
+//connect to https://admin.socket.io/
+//server URL: http://localhost:4000/admin
+const io = new Server(server, {
+  cors: {
+    origin: ["https://admin.socket.io"],
+    credentials: true,
+  },
+});
+
+//set cors here to allow requests from client
 app.use(
   cors({
-    origin: "http://localhost:9000",
+    origin: ["http://localhost:9000"],
+    credentials: true,
   })
 );
 
@@ -84,6 +96,10 @@ app.use(
     graphiql: true,
   })
 );
+
+instrument(io, {
+  auth: false,
+});
 
 server.listen(PORT, (error) => {
   if (!error) console.log("App listening on port: " + PORT);
