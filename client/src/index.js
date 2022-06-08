@@ -8,8 +8,8 @@ const serverAddress =
     ? "http://localhost:4000"
     : "https://flea-market-game.herokuapp.com/api";
 
-const getRumors = () => {
-  fetch(`${serverAddress}/graphql`, {
+const getRumors = async () => {
+  const response = await fetch(`${serverAddress}/graphql`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -18,9 +18,9 @@ const getRumors = () => {
     body: JSON.stringify({
       query: "{ rumors {id, rumor_content, created_at} }",
     }),
-  })
-    .then((r) => r.json())
-    .then((data) => console.log("data returned:", data));
+  });
+  const json = await response.json();
+  return json;
 };
 
 const query = `mutation CreateRumor($input: RumorInput) {
@@ -45,17 +45,38 @@ const createRumor = (content) => {
           },
         },
       }),
-    })
-      .then((r) => r.json())
-      .then((data) => console.log("data returned:", data));
+    }).then((r) => {
+      if (r.status === 200) {
+        return;
+      } else {
+        console.log(r.status);
+      }
+    });
   }
 };
 
-const button = document.getElementById("get-users");
+const button = document.getElementById("get-rumors");
 const inputForm = document.getElementById("input-form");
 const input = document.getElementById("input");
 
-button.addEventListener("click", getRumors);
+const showRumors = (data) => {
+  const container = document.createElement("div");
+  container.id = "rumor-container";
+  data.data.rumors.map((rumor) => {
+    const rumorDiv = document.createElement("div");
+    rumorDiv.innerHTML = rumor.rumor_content;
+    container.appendChild(rumorDiv);
+  });
+  document.body.appendChild(container);
+};
+
+getRumors().then((r) => showRumors(r));
+
+button.addEventListener(
+  "click",
+  console.log("z")
+  //getRumors().then((r) => showRumors(r))
+);
 inputForm.addEventListener("submit", (e) => {
   createRumor(input.value);
   e.preventDefault();

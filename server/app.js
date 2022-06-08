@@ -5,7 +5,6 @@ const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./queries");
-
 const env = process.env.NODE_ENV;
 const app = express();
 const PORT = 4000;
@@ -49,31 +48,20 @@ input RumorInput {
   content: String
 }
 `);
-class Rumor {
-  constructor(id, { content }) {
-    this.id = id;
-    this.content = content;
-    this.author = author;
-  }
-}
 
+//defined resolvers
 const root = {
   rumors: () => {
     return db.getRumors();
   },
-
   createRumor: ({ input }) => {
     const { content } = input;
     if (content.length > 0) {
-      db.createRumor({ rumorContent: content });
+      const res = db.createRumor({ rumorContent: content });
+      return res;
+    } else {
+      return;
     }
-    //Create a random id for our "database".
-
-    // var id = require("crypto").randomBytes(10).toString("hex");
-
-    // fakeDatabase[id] = input;
-    // console.log(fakeDatabase);
-    // return new Message(id, input);
   },
 };
 
@@ -87,9 +75,6 @@ app.use(
 );
 
 app.listen(PORT, (error) => {
-  if (!error)
-    console.log(
-      "Server is Successfully Running, and App is listening on port " + PORT
-    );
-  else console.log("Error occurred, server can't start", error);
+  if (!error) console.log("App listening on port: " + PORT);
+  else console.log("Error occurred: ", error);
 });
