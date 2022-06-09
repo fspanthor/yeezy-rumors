@@ -1,5 +1,7 @@
 import "./style.scss";
 const { io } = require("socket.io-client");
+const createDOMPurify = require("dompurify");
+const DOMPurify = createDOMPurify(window);
 
 //const env = process.env.NODE_ENV;
 const env = "development";
@@ -107,7 +109,8 @@ socket.on("new-rumor-detected", async () => {
 });
 
 inputForm.addEventListener("submit", (e) => {
-  createRumor(input.value);
+  const sanitizedInput = DOMPurify.sanitize(input.value);
+  createRumor(sanitizedInput);
   e.preventDefault();
   inputForm.reset();
 });
