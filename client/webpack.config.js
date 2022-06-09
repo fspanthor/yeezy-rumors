@@ -21,8 +21,8 @@ module.exports = (env) => {
     module: {
       rules: [
         {
-          test: /\.css$/,
-          use: ["style-loader", "css-loader"],
+          test: /\.s[ac]ss$/i,
+          use: ["style-loader", "css-loader", "sass-loader"],
         },
         {
           test: /\.js$/,

@@ -1,4 +1,4 @@
-import "./style.css";
+import "./style.scss";
 const { io } = require("socket.io-client");
 
 //const env = process.env.NODE_ENV;
@@ -71,15 +71,17 @@ const rumorBank = [];
 
 const showRumors = async (data) => {
   const container = document.createElement("div");
+  container.classList.add("ticker");
   container.id = "rumor-container";
   data.data.rumors.map((rumor) => {
     //add to rumor bank to detect new rumors later
     rumorBank.push(rumor);
     const rumorDiv = document.createElement("div");
+    rumorDiv.classList.add("ticker__item");
     rumorDiv.innerHTML = rumor.rumor_content;
     container.appendChild(rumorDiv);
   });
-  document.body.appendChild(container);
+  document.getElementById("ticker-wrap").appendChild(container);
 };
 
 const findNewRumor = (rumorBank, newRumors) => {
@@ -99,6 +101,7 @@ socket.on("new-rumor-detected", async () => {
   rumorBank.push(newRumor[0]);
 
   const newRumorDiv = document.createElement("div");
+  newRumorDiv.classList.add("ticker__item");
   newRumorDiv.innerHTML = newRumor[0].rumor_content;
   document.getElementById("rumor-container").appendChild(newRumorDiv);
   console.log("new rumor detected");
