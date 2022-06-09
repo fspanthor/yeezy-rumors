@@ -29,7 +29,7 @@ const io = new Server(server, {
 //set cors here to allow requests from client
 app.use(
   cors({
-    origin: ["http://localhost:9000"],
+    origin: ["http://localhost:9000", "https://yeezy-rumors.herokuapp.com/"],
     credentials: true,
   })
 );

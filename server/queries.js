@@ -1,12 +1,22 @@
-const Pool = require("pg").Pool;
+//const Pool = require("pg").Pool;
+const { Pool } = require("pg");
+
+//console.log(new Client().pool);
 
 const pool = new Pool({
-  user: "me",
-  host: "localhost",
-  database: "yeezy_rumors_dev",
-  password: "password",
-  port: 5432,
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
+
+// const pool = new Pool({
+//   user: "me",
+//   host: "localhost",
+//   database: "yeezy_rumors_dev",
+//   password: "password",
+//   port: 5432,
+// });
 
 const getRumors = async () => {
   const res = await pool.query("SELECT * FROM rumors ORDER BY id DESC");
