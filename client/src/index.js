@@ -63,7 +63,6 @@ const createRumor = (content) => {
   }
 };
 
-const button = document.getElementById("get-rumors");
 const inputForm = document.getElementById("input-form");
 const input = document.getElementById("input");
 
@@ -107,7 +106,6 @@ socket.on("new-rumor-detected", async () => {
   console.log("new rumor detected");
 });
 
-button.addEventListener("click", () => getRumors());
 inputForm.addEventListener("submit", (e) => {
   createRumor(input.value);
   e.preventDefault();

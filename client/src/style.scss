@@ -1,5 +1,29 @@
 body {
   background: peachpuff;
+  margin: 0;
+}
+
+h1, span {
+  display: flex;
+  justify-content: center;
+}
+
+span {
+  margin: 2rem;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+input[type=submit]{
+  width: 40%;
+  margin: auto;
+  cursor: pointer;
 }
 
 * { box-sizing: border-box; }
@@ -34,7 +58,7 @@ $duration: 30s;
 .ticker-wrap {
   
   position: fixed;
-  bottom: 0;
+  bottom: 50%;
   width: 100%;
   overflow: hidden;
   height: 4rem;
