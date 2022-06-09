@@ -9,10 +9,10 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const db = require("./queries");
 
-const env = process.env.NODE_ENV;
 const app = express();
 const http = require("http");
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
+//const env = process.env.NODE_ENV;
 
 const server = http.createServer(app);
 
