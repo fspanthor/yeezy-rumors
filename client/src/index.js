@@ -3,13 +3,15 @@ const { io } = require("socket.io-client");
 const createDOMPurify = require("dompurify");
 const DOMPurify = createDOMPurify(window);
 
-const env = process.env.NODE_ENV;
-//const env = "development";
+// const env = process.env.NODE_ENV;
+// //const env = "development";
 
-const serverAddress =
-  env === "development"
-    ? "http://localhost:4000"
-    : "http://yeezy-rumors.herokuapp.com/";
+// const serverAddress =
+//   env === "development"
+//     ? "http://localhost:4000"
+//     : "http://yeezy-rumors.herokuapp.com/";
+
+const serverAddress = "http://yeezy-rumors.herokuapp.com/";
 
 const socket = io(serverAddress, { transports: ["websocket"] });
 
