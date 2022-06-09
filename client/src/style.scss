@@ -12,6 +12,21 @@ span {
   margin: 2rem;
 }
 
+@keyframes fade-out {
+  0% {opacity: 1;}
+  100% {opacity: 0;} 
+} 
+
+.new-rumor {
+  display: flex;
+  justify-content: center;
+  top: 3rem;
+  position: relative;
+  animation-name: fade-out;
+  animation-duration: 3s;
+  animation-delay: 5s;
+}
+
 form {
   display: flex;
   justify-content: center;
@@ -58,7 +73,7 @@ $duration: 30s;
 .ticker-wrap {
   
   position: fixed;
-  bottom: 50%;
+  bottom: 60%;
   width: 100%;
   overflow: hidden;
   height: 4rem;

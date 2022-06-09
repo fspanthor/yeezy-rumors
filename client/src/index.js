@@ -67,6 +67,9 @@ const createRumor = (content) => {
 
 const inputForm = document.getElementById("input-form");
 const input = document.getElementById("input");
+const newRumorPopupContainer = document.getElementById(
+  "new-rumor-popup-container"
+);
 
 const rumorBank = [];
 
@@ -101,11 +104,33 @@ socket.on("new-rumor-detected", async () => {
   //update rumor bank with new rumor
   rumorBank.push(newRumor[0]);
 
-  const newRumorDiv = document.createElement("div");
-  newRumorDiv.classList.add("ticker__item");
-  newRumorDiv.innerHTML = newRumor[0].rumor_content;
-  document.getElementById("rumor-container").appendChild(newRumorDiv);
-  console.log("new rumor detected");
+  const newRumorDivForTicker = document.createElement("div");
+  newRumorDivForTicker.classList.add("ticker__item");
+  newRumorDivForTicker.innerHTML = newRumor[0].rumor_content;
+
+  const newRumorSpanForPopup = document.createElement("span");
+  newRumorSpanForPopup.classList.add("new-rumor");
+  newRumorSpanForPopup.innerHTML = newRumor[0].rumor_content;
+
+  const hotNewRumorSpan = document.createElement("span");
+  hotNewRumorSpan.classList.add("new-rumor");
+  hotNewRumorSpan.innerHTML = "NEW RUMOR JUST DROPPED: ";
+
+  const newRumorWrapper = document.createElement("div");
+  newRumorWrapper.classList.add("new-rumor");
+  newRumorWrapper.appendChild(hotNewRumorSpan);
+  newRumorWrapper.appendChild(newRumorSpanForPopup);
+
+  //add new rumor to ticker
+  document.getElementById("rumor-container").appendChild(newRumorDivForTicker);
+
+  //add new rumor to new rumor popup container
+  newRumorPopupContainer.prepend(newRumorWrapper);
+
+  //remove new rumor after some time
+  setTimeout(() => {
+    newRumorWrapper.remove();
+  }, 7000);
 });
 
 inputForm.addEventListener("submit", (e) => {
