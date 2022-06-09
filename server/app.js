@@ -50,8 +50,8 @@ io.on("connection", (socket) => {
 });
 
 // send static client files here when in prod
-env === "production" &&
-  app.use(express.static(path.resolve(__dirname, "../client/public")));
+// env === "production" &&
+app.use(express.static(path.resolve(__dirname, "../client/public")));
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
