@@ -11,7 +11,7 @@ const DOMPurify = createDOMPurify(window);
 //     ? "http://localhost:4000"
 //     : "http://yeezy-rumors.herokuapp.com/";
 
-const serverAddress = "https://yeezy-rumors.herokuapp.com/";
+const serverAddress = "https://yeezy-rumors.herokuapp.com";
 
 const socket = io(serverAddress, { transports: ["websocket"] });
 
