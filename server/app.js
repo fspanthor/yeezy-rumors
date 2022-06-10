@@ -101,9 +101,18 @@ app.use(
   })
 );
 
-instrument(io, {
-  auth: false,
-});
+//if environment is prod use auth
+env === "production"
+  ? instrument(io, {
+      auth: {
+        type: "basic",
+        username: process.env.DASHBOARD_USER_NAME,
+        password: process.env.DASHBOARD_PASSWORD,
+      },
+    })
+  : instrument(io, {
+      auth: false,
+    });
 
 server.listen(PORT, (error) => {
   if (!error) console.log("App listening on port: " + PORT);
