@@ -18,4 +18,4 @@ Socket.IO is used to notify concurrent user clients when new rumors are posted.
 Connect to https://admin.socket.io/  
 Server URL: http://localhost:4000/admin
   
-![alt text](https://github.com/[fspanthor]/[yeezy-rumors]/blob/[main]/fruitsnack.png?raw=true)
+![alt text](/fruitsnack.png)
