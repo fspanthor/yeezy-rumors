@@ -8,7 +8,7 @@ const env = process.env.NODE_ENV;
 const serverAddress =
   env === "development"
     ? "http://localhost:4000"
-    : "http://yeezy-rumors.herokuapp.com/";
+    : "http://yeezy-rumors.herokuapp.com";
 
 const socket = io(serverAddress, { transports: ["websocket"] });
 
