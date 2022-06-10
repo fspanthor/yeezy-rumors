@@ -21,7 +21,7 @@ const env = process.env.NODE_ENV;
 //server URL: http://localhost:4000/admin
 const io = new Server(server, {
   cors: {
-    origin: ["https://admin.socket.io"],
+    origin: ["https://admin.socket.io", "http://yeezy-rumors.herokuapp.com/"],
     credentials: true,
   },
 });
