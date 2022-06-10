@@ -45,9 +45,9 @@ module.exports = (env) => {
           env.WEBPACK_SERVE === true
             ? JSON.stringify("development")
             : JSON.stringify("production"),
+        //if webpack serve is true, use ESLint
+        ...(env.WEBPACK_SERVE === false && new ESLintPlugin()),
       }),
-      //if webpack serve is true, uses ESLint
-      ...(env.WEBPACK_SERVE === true && [new ESLintPlugin()]),
     ],
   };
 };
