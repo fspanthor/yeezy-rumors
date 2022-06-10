@@ -3,5 +3,6 @@ client/node_modules
 client/public/bundle.js
 
 server/node_modules
+server/developmentDbConnection.js
 
 .DS_Store

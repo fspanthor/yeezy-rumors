@@ -1,22 +1,18 @@
-//const Pool = require("pg").Pool;
 const { Pool } = require("pg");
+const { developmentDbConnection } =
+  process.env.NODE_ENV !== "production" && require("./developmentDbConnection");
 
-//console.log(new Client().pool);
+const env = process.env.NODE_ENV;
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
-});
-
-// const pool = new Pool({
-//   user: "me",
-//   host: "localhost",
-//   database: "yeezy_rumors_dev",
-//   password: "password",
-//   port: 5432,
-// });
+const pool =
+  env === "production"
+    ? new Pool({
+        connectionString: process.env.DATABASE_URL,
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      })
+    : new Pool(developmentDbConnection());
 
 const getRumors = async () => {
   const res = await pool.query("SELECT * FROM rumors ORDER BY id DESC");

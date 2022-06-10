@@ -1,7 +1,9 @@
 const path = require("path");
-//const ESLintPlugin = require("eslint-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = (env) => {
+  //webpack serve is only used in development
+  const ESLintPlugin = env.WEBPACK_SERVE && require("eslint-webpack-plugin");
   return {
     mode: "none",
     entry: "./src/index.js",
@@ -36,6 +38,16 @@ module.exports = (env) => {
         },
       ],
     },
-    //...(env.WEBPACK_SERVE === true && { plugins: [new ESLintPlugin()] }),
+    plugins: [
+      //if webpack serve is true set fake NODE_ENV accordingly
+      new webpack.DefinePlugin({
+        "process.env.NODE_ENV":
+          env.WEBPACK_SERVE === true
+            ? JSON.stringify("development")
+            : JSON.stringify("production"),
+      }),
+      //if webpack serve is true, uses ESLint
+      ...(env.WEBPACK_SERVE === true && [new ESLintPlugin()]),
+    ],
   };
 };

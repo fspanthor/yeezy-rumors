@@ -11,10 +11,10 @@ const db = require("./queries");
 
 const app = express();
 const http = require("http");
-const PORT = process.env.PORT || 4000;
-//const env = process.env.NODE_ENV;
-
 const server = http.createServer(app);
+
+const PORT = process.env.PORT || 4000;
+const env = process.env.NODE_ENV;
 
 //set cors here to allow admin dashboard
 //connect to https://admin.socket.io/
@@ -50,8 +50,8 @@ io.on("connection", (socket) => {
 });
 
 // send static client files here when in prod
-// env === "production" &&
-app.use(express.static(path.resolve(__dirname, "../client/public")));
+env === "production" &&
+  app.use(express.static(path.resolve(__dirname, "../client/public")));
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
