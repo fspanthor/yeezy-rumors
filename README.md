@@ -15,7 +15,7 @@ Client and Server communicate via GraphQL.
 Socket.IO is used to notify concurrent user clients when new rumors are posted.  
 
 ***To use Socket.IO Admin UI:***  
-Connect to https://admin.socket.io/  
+Connect to: https://admin.socket.io/  
 Server URL: http://localhost:4000/admin
   
 ![alt text](/fruitsnack.png)
