@@ -6,3 +6,4 @@ server/node_modules
 server/developmentDbConnection.js
 
 .DS_Store
+node_modules

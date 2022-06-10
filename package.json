@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd server && npm install && node app.js",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "install-yeezy-rumors": "concurrently \"cd client && npm install\" \"cd server && npm install \"",
+    "devStart": "concurrently \"cd client && npm run start\" \"cd server && npm run start\" "
   },
   "repository": {
     "type": "git",
@@ -17,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/fspanthor/yeezy-rumors/issues"
   },
-  "homepage": "https://github.com/fspanthor/yeezy-rumors#readme"
+  "homepage": "https://github.com/fspanthor/yeezy-rumors#readme",
+  "dependencies": {
+    "concurrently": "^7.2.1"
+  }
 }
