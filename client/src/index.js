@@ -16,7 +16,12 @@ socket.on("connect", () => {
   console.log("socket id: ", socket.id);
 });
 
-const getRumors = async () => {
+var getRumorQuery = `query getRumors($date: String) {
+  rumors(date: $date) {id, rumor_content, created_at}
+}`;
+
+//if date is passed return rumors created after or equal to date
+const getRumors = async (date) => {
   const response = await fetch(`${serverAddress}/graphql`, {
     method: "POST",
     headers: {
@@ -24,7 +29,8 @@ const getRumors = async () => {
       Accept: "application/json",
     },
     body: JSON.stringify({
-      query: "{ rumors {id, rumor_content, created_at} }",
+      query: getRumorQuery,
+      variables: { date },
     }),
   });
   const json = await response.json();
@@ -64,13 +70,34 @@ const createRumor = (content) => {
   }
 };
 
+const subtractDays = (date, days) => {
+  const result = new Date(date);
+  result.setDate(result.getDate() - days);
+  return result;
+};
+
+const rumorBank = [];
+let rumorLimit = "";
+
 const inputForm = document.getElementById("input-form");
 const input = document.getElementById("input");
 const newRumorPopupContainer = document.getElementById(
   "new-rumor-popup-container"
 );
-
-const rumorBank = [];
+const selectDate = document.getElementById("select-date");
+selectDate.addEventListener("change", (e) => {
+  if (e.target.value === "last-7-days") {
+    rumorLimit = subtractDays(new Date(), 0).toISOString().slice(0, 10);
+    rumorBank.length = 0;
+    document.getElementById("rumor-container").remove();
+    getRumors(rumorLimit).then((r) => showRumors(r));
+  } else {
+    rumorLimit = "";
+    rumorBank.length = 0;
+    document.getElementById("rumor-container").remove();
+    getRumors(rumorLimit).then((r) => showRumors(r));
+  }
+});
 
 const showRumors = async (data) => {
   const container = document.createElement("div");

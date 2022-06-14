@@ -58,7 +58,7 @@ const schema = buildSchema(`
 scalar Date
 
 type Query {
-  rumors: [Rumor],
+  rumors(date: String): [Rumor],
 }
 
 type Mutation {
@@ -78,8 +78,8 @@ input RumorInput {
 
 //defined resolvers
 const root = {
-  rumors: () => {
-    return db.getRumors();
+  rumors: ({ date }) => {
+    return db.getRumors(date);
   },
   createRumor: ({ input }) => {
     const { content } = input;

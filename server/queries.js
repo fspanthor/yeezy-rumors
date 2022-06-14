@@ -14,8 +14,17 @@ const pool =
       })
     : new Pool(developmentDbConnection());
 
-const getRumors = async () => {
-  const res = await pool.query("SELECT * FROM rumors ORDER BY id DESC");
+const getRumors = async (date) => {
+  let res;
+  //if a date is passed, get records from after or equal to date
+  if (date) {
+    res = await pool.query(
+      "SELECT * FROM rumors WHERE created_at >= $1::timestamp ORDER BY id DESC",
+      [date]
+    );
+  } else {
+    res = await pool.query("SELECT * FROM rumors ORDER BY id DESC");
+  }
   return res.rows;
 };
 

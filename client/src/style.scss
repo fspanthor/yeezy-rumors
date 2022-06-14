@@ -12,6 +12,11 @@ span {
   margin: 2rem;
 }
 
+select {
+  display: flex;
+  margin: auto;
+}
+
 @keyframes fade-out {
   0% {opacity: 1;}
   100% {opacity: 0;} 
