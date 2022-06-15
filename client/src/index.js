@@ -74,7 +74,7 @@ socket.on("new-rumor-detected", async () => {
 
   const hotNewRumorSpan = document.createElement("span");
   hotNewRumorSpan.classList.add("new-rumor");
-  hotNewRumorSpan.innerHTML = "NEW RUMOR JUST DROPPED: ";
+  hotNewRumorSpan.innerHTML = "NEW RUMOR JUST DROPPED 🔥 ";
 
   const newRumorWrapper = document.createElement("div");
   newRumorWrapper.classList.add("new-rumor");
