@@ -23,14 +23,21 @@ export const showRumors = async (data) => {
   const container = document.createElement("div");
   container.classList.add("ticker");
   container.id = "rumor-container";
-  data.data.rumors.map((rumor) => {
-    //add to rumor bank to detect new rumors later
-    rumorBank.push(rumor);
+  if (data.data.rumors.length === 0) {
     const rumorDiv = document.createElement("div");
     rumorDiv.classList.add("ticker__item");
-    rumorDiv.innerHTML = rumor.rumor_content;
+    rumorDiv.innerHTML = "NO RUMORS FROM THIS DATE RANGE...";
     container.appendChild(rumorDiv);
-  });
+  } else {
+    data.data.rumors.map((rumor) => {
+      //add to rumor bank to detect new rumors later
+      rumorBank.push(rumor);
+      const rumorDiv = document.createElement("div");
+      rumorDiv.classList.add("ticker__item");
+      rumorDiv.innerHTML = rumor.rumor_content;
+      container.appendChild(rumorDiv);
+    });
+  }
   tickerWrap.appendChild(container);
 };
 
