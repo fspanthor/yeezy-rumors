@@ -1,127 +1,47 @@
 import "./style.scss";
-const { io } = require("socket.io-client");
+
 const createDOMPurify = require("dompurify");
 const DOMPurify = createDOMPurify(window);
+import { getRumors, createRumor } from "./service/httpRequests";
+import {
+  subtractDays,
+  findNewRumor,
+  rumorBank,
+  rumorLimit,
+  setRumorLimit,
+  showRumors,
+} from "./utilities";
+import { socket } from "./socketConnection";
+import {
+  selectDate,
+  newRumorPopupContainer,
+  input,
+  inputForm,
+} from "./htmlElements";
 
-const env = process.env.NODE_ENV;
-
-const serverAddress =
-  env === "development"
-    ? "http://localhost:4000"
-    : "https://yeezy-rumors.herokuapp.com";
-
-const socket = io(serverAddress, { transports: ["websocket"] });
-
-socket.on("connect", () => {
-  console.log("socket id: ", socket.id);
-});
-
-var getRumorQuery = `query getRumors($date: String) {
-  rumors(date: $date) {id, rumor_content, created_at}
-}`;
-
-//if date is passed return rumors created after or equal to date
-const getRumors = async (date) => {
-  const response = await fetch(`${serverAddress}/graphql`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify({
-      query: getRumorQuery,
-      variables: { date },
-    }),
-  });
-  const json = await response.json();
-  return json;
-};
-
-const query = `mutation CreateRumor($input: RumorInput) {
-  createRumor(input: $input) {
-    id
-  }
-}`;
-
-const createRumor = (content) => {
-  if (content.length > 0) {
-    fetch(`${serverAddress}/graphql`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        query,
-        variables: {
-          input: {
-            content,
-          },
-        },
-      }),
-    }).then((r) => {
-      if (r.status === 200) {
-        socket.emit("rumor-added");
-        return;
-      } else {
-        console.log(r.status);
-      }
-    });
-  }
-};
-
-const subtractDays = (date, days) => {
-  const result = new Date(date);
-  result.setDate(result.getDate() - days);
-  return result;
-};
-
-const rumorBank = [];
-let rumorLimit = "";
-
-const inputForm = document.getElementById("input-form");
-const input = document.getElementById("input");
-const newRumorPopupContainer = document.getElementById(
-  "new-rumor-popup-container"
-);
-const selectDate = document.getElementById("select-date");
+/**
+ * event listeners
+ */
 selectDate.addEventListener("change", (e) => {
   if (e.target.value === "last-7-days") {
-    rumorLimit = subtractDays(new Date(), 0).toISOString().slice(0, 10);
+    setRumorLimit(subtractDays(new Date(), 0).toISOString().slice(0, 10));
     rumorBank.length = 0;
     document.getElementById("rumor-container").remove();
     getRumors(rumorLimit).then((r) => showRumors(r));
   } else {
-    rumorLimit = "";
+    setRumorLimit("");
     rumorBank.length = 0;
     document.getElementById("rumor-container").remove();
     getRumors(rumorLimit).then((r) => showRumors(r));
   }
 });
 
-const showRumors = async (data) => {
-  const container = document.createElement("div");
-  container.classList.add("ticker");
-  container.id = "rumor-container";
-  data.data.rumors.map((rumor) => {
-    //add to rumor bank to detect new rumors later
-    rumorBank.push(rumor);
-    const rumorDiv = document.createElement("div");
-    rumorDiv.classList.add("ticker__item");
-    rumorDiv.innerHTML = rumor.rumor_content;
-    container.appendChild(rumorDiv);
-  });
-  document.getElementById("ticker-wrap").appendChild(container);
-};
-
-const findNewRumor = (rumorBank, newRumors) => {
-  const newRumor = newRumors.filter(
-    ({ id: id1 }) => !rumorBank.some(({ id: id2 }) => id2 === id1)
-  );
-  return newRumor;
-};
-
-getRumors().then((r) => showRumors(r));
+inputForm.addEventListener("submit", (e) => {
+  const sanitizedInput = DOMPurify.sanitize(input.value);
+  createRumor(sanitizedInput);
+  e.preventDefault();
+  inputForm.reset();
+});
 
 socket.on("new-rumor-detected", async () => {
   //get fresh batch of rumors to find new rumor
@@ -159,9 +79,4 @@ socket.on("new-rumor-detected", async () => {
   }, 7000);
 });
 
-inputForm.addEventListener("submit", (e) => {
-  const sanitizedInput = DOMPurify.sanitize(input.value);
-  createRumor(sanitizedInput);
-  e.preventDefault();
-  inputForm.reset();
-});
+getRumors().then((r) => showRumors(r));
