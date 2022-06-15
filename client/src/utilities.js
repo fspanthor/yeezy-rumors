@@ -37,3 +37,13 @@ export const showRumors = async (data) => {
 export const setRumorLimit = (limit) => {
   rumorLimit = limit;
 };
+
+export const showAbout = (homeElement, aboutElement) => {
+  homeElement.setAttribute("hidden", true);
+  aboutElement.removeAttribute("hidden");
+};
+
+export const showHome = (homeElement, aboutElement) => {
+  aboutElement.setAttribute("hidden", true);
+  homeElement.removeAttribute("hidden");
+};

@@ -10,6 +10,8 @@ import {
   rumorLimit,
   setRumorLimit,
   showRumors,
+  showAbout,
+  showHome,
 } from "./utilities";
 import { socket } from "./socketConnection";
 import {
@@ -17,6 +19,10 @@ import {
   newRumorPopupContainer,
   input,
   inputForm,
+  aboutButton,
+  homeButton,
+  home,
+  about,
 } from "./htmlElements";
 
 /**
@@ -41,6 +47,14 @@ inputForm.addEventListener("submit", (e) => {
   createRumor(sanitizedInput);
   e.preventDefault();
   inputForm.reset();
+});
+
+aboutButton.addEventListener("click", () => {
+  showAbout(home, about);
+});
+
+homeButton.addEventListener("click", () => {
+  showHome(home, about);
 });
 
 socket.on("new-rumor-detected", async () => {

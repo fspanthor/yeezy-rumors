@@ -10,18 +10,35 @@
          crossorigin="anonymous"></script>
    </head>
    <body>
-      <h1>YEEZYRUMORS</h1>
-      <span id="description">SUBMIT WILDEST YEEZY RUMORS HERE. ALL RUMORS WILL BE VETTED BY SOPHISTICATED BOT ONLY TRUE RUMORS WILL BE ALLOWED</span>
-      <form id="input-form">
-         <input id='input'/>
-         <input type="submit" value="SUBMIT RUMOR (100% TRUE ONLY)" id="submit-button"/>
-      </form>
-      <div class="ticker-wrap" id="ticker-wrap"></div>
-      <select id="select-date">
-         <option value="all-time-rumors">ALL TIME RUMORS</option>
-         <option value="last-7-days">LAST 7 DAYS</option>
-      </select>
-      <div id="new-rumor-popup-container"></div>
+      <div id="home">
+         <h1>YEEZYRUMORS</h1>
+         <span id="description">SUBMIT WILDEST YEEZY RUMORS HERE. ALL RUMORS WILL BE VETTED BY SOPHISTICATED BOT ONLY TRUE RUMORS WILL BE ALLOWED</span>
+         <form id="input-form">
+            <input id='input'/>
+            <input type="submit" value="SUBMIT RUMOR (100% TRUE ONLY)" id="submit-button"/>
+         </form>
+         <div class="ticker-wrap" id="ticker-wrap"></div>
+         <select id="select-date">
+            <option value="all-time-rumors">ALL TIME RUMORS</option>
+            <option value="last-7-days">LAST 7 DAYS</option>
+         </select>
+         <button id="about-button">ABOUT</button>
+         <div id="new-rumor-popup-container"></div>
+      </div>
+      <div id="about" hidden>
+         <div>
+         <h2>MANIFESTO</h2>
+         <p>YEEZYRUMORS WAS BORN FROM A NEED TO SPREAD RUMORS QUICKLY AND EASILY.</p>
+         <h3>FAQ:</h3>
+         <p>I FEEL I WAS BANNED UNFAIRLY, CAN MY BAN BE REVERSED?</p>
+         <strong>NO</strong>
+         <p>FOUND A BUG??</p>
+         <strong>PLEASE DO NOT MAIL ME, I AM EXTREMELY BUSY.</strong>
+         <p>HOW DO I GET OFF THE MAILING LIST?</p>
+         <strong>I AM EXTREMELY SORRY, BUT NO
+         I NOW HAVE ROOT ON YOUR MACHINE</strong>
+         <button id="home-button">HOME</button>
+      </div>
       <script src="bundle.js"></script>
    </body>
 </html>
