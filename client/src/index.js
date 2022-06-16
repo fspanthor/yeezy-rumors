@@ -59,6 +59,12 @@ homeButton.addEventListener("click", () => {
 });
 
 socket.on("new-rumor-detected", async () => {
+  //check if we need to remove no rumors placeholder
+  const placeholder = document.getElementById("no-rumors-item");
+  if (placeholder) {
+    placeholder.remove();
+  }
+
   //get fresh batch of rumors to find new rumor
   const refreshedRumors = await getRumors();
   const newRumor = findNewRumor(rumorBank, refreshedRumors.data.rumors);
@@ -75,6 +81,7 @@ socket.on("new-rumor-detected", async () => {
 
   const hotNewRumorSpan = document.createElement("span");
   hotNewRumorSpan.classList.add("new-rumor");
+  hotNewRumorSpan.style.fontWeight = "bold";
   hotNewRumorSpan.innerHTML = "NEW RUMOR JUST DROPPED 🔥 ";
 
   const newRumorWrapper = document.createElement("div");

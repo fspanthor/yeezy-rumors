@@ -26,6 +26,7 @@ export const showRumors = async (data) => {
   if (data.data.rumors.length === 0) {
     const rumorDiv = document.createElement("div");
     rumorDiv.classList.add("ticker__item");
+    rumorDiv.setAttribute("id", "no-rumors-item");
     rumorDiv.innerHTML = "NO RUMORS FROM THIS DATE RANGE...";
     container.appendChild(rumorDiv);
   } else {
