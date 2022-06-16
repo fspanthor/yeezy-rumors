@@ -61,7 +61,6 @@ export const titleAnimation = () => {
   const altTitle = "NEW RUMOR JUST DROPPED";
   for (let i = 0; i < 4; i++) {
     setTimeout(() => {
-      console.log("new");
       if (document.title === defaultTitle) {
         document.title = altTitle;
       } else {
