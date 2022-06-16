@@ -1,7 +1,9 @@
 # yeezy-rumors  
   
 **Local Install**  
-```$ ./install.sh```  
+Install Postgres.app (https://postgresapp.com/)  
+```$ ./install.sh``` to install dependencies and set up local development database with default settings.  
+If you want to customize your database connection use optional arguments ```$ ./install.sh <dbUserName> <dbPassword> <dbName>```
   
 **Development**  
 ```$ npm run devStart```  
