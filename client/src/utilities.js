@@ -54,3 +54,18 @@ export const showHome = (homeElement, aboutElement) => {
   aboutElement.setAttribute("hidden", true);
   homeElement.removeAttribute("hidden");
 };
+
+export const titleAnimation = () => {
+  const defaultTitle = "yeezy-rumors";
+  const altTitle = "NEW RUMOR JUST DROPPED";
+  for (let i = 0; i < 4; i++) {
+    setTimeout(() => {
+      console.log("new");
+      if (document.title === defaultTitle) {
+        document.title = altTitle;
+      } else {
+        document.title = defaultTitle;
+      }
+    }, i * 1000);
+  }
+};

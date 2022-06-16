@@ -12,6 +12,7 @@ import {
   showRumors,
   showAbout,
   showHome,
+  titleAnimation,
 } from "./utilities";
 import { socket } from "./socketConnection";
 import {
@@ -86,6 +87,9 @@ socket.on("new-rumor-detected", async () => {
 
   //add new rumor to new rumor popup container
   newRumorPopupContainer.prepend(newRumorWrapper);
+
+  //animate title
+  titleAnimation();
 
   //remove new rumor after some time
   setTimeout(() => {
