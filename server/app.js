@@ -62,7 +62,7 @@ type Query {
 }
 
 type Mutation {
-  createRumor(input: RumorInput): Rumor
+  createRumor(rumorContent: String): Rumor
 }
 
 type Rumor {
@@ -71,9 +71,6 @@ type Rumor {
   created_at: Date,
 }
 
-input RumorInput {
-  content: String
-}
 `);
 
 //defined resolvers
@@ -81,11 +78,10 @@ const root = {
   rumors: ({ date }) => {
     return db.getRumors(date);
   },
-  createRumor: ({ input }) => {
-    const { content } = input;
-    if (content.length > 0) {
-      const res = db.createRumor({ rumorContent: content });
-      return res;
+  createRumor: ({ rumorContent }) => {
+    if (rumorContent.length > 0) {
+      const res = db.createRumor(rumorContent);
+      return { id: res };
     } else {
       return;
     }

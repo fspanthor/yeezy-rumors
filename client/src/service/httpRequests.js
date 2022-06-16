@@ -22,14 +22,14 @@ export const getRumors = async (date) => {
   return json;
 };
 
-const query = `mutation CreateRumor($input: RumorInput) {
-    createRumor(input: $input) {
+const query = `mutation CreateRumor($rumorContent: String) {
+    createRumor(rumorContent: $rumorContent) {
       id
     }
   }`;
 
-export const createRumor = (content) => {
-  if (content.length > 0) {
+export const createRumor = (rumorContent) => {
+  if (rumorContent.length > 0) {
     fetch(`${serverAddress}/graphql`, {
       method: "POST",
       headers: {
@@ -39,9 +39,7 @@ export const createRumor = (content) => {
       body: JSON.stringify({
         query,
         variables: {
-          input: {
-            content,
-          },
+          rumorContent,
         },
       }),
     }).then((r) => {

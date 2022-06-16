@@ -28,13 +28,13 @@ const getRumors = async (date) => {
   return res.rows;
 };
 
-const createRumor = async (request) => {
-  const { rumorContent } = request;
+const createRumor = async (rumorContent) => {
   const res = await pool.query(
-    "INSERT INTO rumors (rumor_content) VALUES ($1)",
+    "INSERT INTO rumors (rumor_content) VALUES ($1) RETURNING id",
     [rumorContent]
   );
-  return res.rowCount;
+  //return id
+  return res.rows[0].id;
 };
 
 module.exports = {
