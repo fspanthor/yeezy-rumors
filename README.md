@@ -1,4 +1,5 @@
 # yeezy-rumors  
+All concurrently connected clients are notified of new rumors as they are posted and new rumors are added to ticker. You can filter by recent rumors and that is pretty much it..
   
 **Local Install**  
 You will need a local PostgreSQL server instance running to use this locally or do any meaningful development work.    
