@@ -27,6 +27,9 @@ Socket.IO is used to notify concurrent user clients when new rumors are posted.
 
 ***To use Socket.IO Admin UI:***  
 Connect to: https://admin.socket.io/  
-Server URL: http://localhost:4000/admin
+Server URL: http://localhost:4000/admin  
+
+***To remove local db entries:***  
+```$ deleteDbEntries.sh``` is a convenience wrapper for TRUNCATE TABLE  
   
 ![alt text](/fruitsnack.png)
