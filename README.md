@@ -10,7 +10,7 @@ If you want to customize your database connection use optional arguments:
 ```$ ./install.sh <dbUserName> <dbPassword> <dbName>```
 
   
-NOTE: If you get ```permission denied``` during install, update permissions with ```$ sudo chmod +x install.sh``` or solve it your own way or google it or whatever.  
+NOTE: If you get ```permission denied``` during install, update permissions with ```$ sudo chmod +x install.sh``` and try again. Or solve it your own way or google it or whatever.  
   
 **Development**  
 ```$ npm run devStart```  
