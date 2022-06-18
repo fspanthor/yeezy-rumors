@@ -30,6 +30,6 @@ Connect to: https://admin.socket.io/
 Server URL: http://localhost:4000/admin  
 
 ***To remove local db entries:***  
-```$ deleteDbEntries.sh``` is a convenience wrapper for TRUNCATE TABLE  
+```$ deleteDbEntries.sh``` (in /scripts) is a convenience wrapper for TRUNCATE TABLE  
   
 ![alt text](/fruitsnack.png)
