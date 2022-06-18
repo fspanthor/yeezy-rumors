@@ -1,7 +1,8 @@
 #!/bin/sh
 
+#install dependencies
 npm install concurrently --save
 npm run install-yeezy-rumors
 
 #set up database
-source setupDb.sh
+source scripts/setupDb.sh
