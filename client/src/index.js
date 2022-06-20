@@ -44,8 +44,8 @@ selectDate.addEventListener("change", (e) => {
 });
 
 inputForm.addEventListener("submit", (e) => {
-  //const sanitizedInput = DOMPurify.sanitize(input.value);
-  createRumor(input.value);
+  const sanitizedInput = DOMPurify.sanitize(input.value);
+  createRumor(sanitizedInput);
   e.preventDefault();
   inputForm.reset();
 });
