@@ -6,7 +6,7 @@ DB_USER=${1:-yeezy_dev_user}
 DB_USER_PASS=${2:-password}
 DB_NAME=${3:-yeezy_rumors_development}
 
-psql -U postgres <<EOF
+psql postgres <<EOF
 CREATE ROLE $DB_USER WITH LOGIN PASSWORD '$DB_USER_PASS';
 ALTER ROLE $DB_USER CREATEDB;
 EOF
