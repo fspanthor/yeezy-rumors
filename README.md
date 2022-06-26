@@ -5,8 +5,9 @@ All concurrently connected clients are notified of new rumors as they are posted
 **Local Install**  
 You will need a local PostgreSQL server instance running to use this locally or do any meaningful development work.
 
-1. `$ brew install postgresql` to install postgres.
-2. `$ ./install.sh` to install dependencies and set up local development database with default settings.  
+1. `$ brew install postgresql` to install postgres.  
+2. ```$ brew services start postgresql``` to start up postgres.
+3. `$ ./install.sh` to install dependencies and set up local development database with default settings.  
    If you want to customize your database connection use optional arguments:  
    `$ ./install.sh <dbUserName> <dbPassword> <dbName>`
 
