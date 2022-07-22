@@ -14,6 +14,10 @@ export const findNewRumor = (rumorBank, newRumors) => {
   return newRumor;
 };
 
+export const tickerSpeed = (containerElement) => {
+  return `${containerElement.offsetWidth / 200}s`;
+};
+
 //rumors are stored in rumor bank
 export const rumorBank = [];
 //rumor limit is used to get rumors after a specified date
@@ -23,6 +27,7 @@ export const showRumors = async (data) => {
   const container = document.createElement("div");
   container.classList.add("ticker");
   container.id = "rumor-container";
+
   if (data.data.rumors.length === 0) {
     const rumorDiv = document.createElement("div");
     rumorDiv.classList.add("ticker__item");
@@ -40,6 +45,10 @@ export const showRumors = async (data) => {
     });
   }
   tickerWrap.appendChild(container);
+
+  //set rumor container animation speed based on size of rumor container
+  container.style["animation-duration"] = tickerSpeed(container);
+  container.style["-webkit-animation-duration"] = tickerSpeed(container);
 };
 
 export const setRumorLimit = (limit) => {

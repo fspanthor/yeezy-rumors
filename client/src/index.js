@@ -13,6 +13,7 @@ import {
   showAbout,
   showHome,
   titleAnimation,
+  tickerSpeed,
 } from "./utilities";
 import { socket } from "./socketConnection";
 import {
@@ -94,6 +95,12 @@ socket.on("new-rumor-detected", async () => {
 
   //add new rumor to new rumor popup container
   newRumorPopupContainer.prepend(newRumorWrapper);
+
+  //adjust ticker speed based on new rumor container size
+  const rumorContainer = document.getElementById("rumor-container");
+  rumorContainer.style["animation-duration"] = tickerSpeed(rumorContainer);
+  rumorContainer.style["-webkit-animation-duration"] =
+    tickerSpeed(rumorContainer);
 
   //animate title
   titleAnimation();

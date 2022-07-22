@@ -141,8 +141,6 @@ $duration: 30s;
     animation-timing-function: linear;
     -webkit-animation-name: ticker;
     animation-name: ticker;
-    -webkit-animation-duration: $duration;
-    animation-duration: $duration;
 
     &__item {
       display: inline-block;
