@@ -32,7 +32,7 @@ import {
  */
 selectDate.addEventListener("change", (e) => {
   if (e.target.value === "last-7-days") {
-    setRumorLimit(subtractDays(new Date(), 0).toISOString().slice(0, 10), 7);
+    setRumorLimit(subtractDays(new Date(), 7).toISOString().slice(0, 10));
     rumorBank.length = 0;
     document.getElementById("rumor-container").remove();
     getRumors(rumorLimit).then((r) => showRumors(r));
