@@ -1,0 +1,14 @@
+FROM node:16 AS ui-build
+WORKDIR /
+COPY client/ ./client/
+RUN cd client && npm install && npm run build
+
+FROM node:16 AS server-build
+WORKDIR /
+COPY --from=ui-build /client/public ./client/public
+COPY server ./server/
+RUN cd server && npm install
+
+EXPOSE 4000
+
+CMD ["node", "./server/app.js"]
