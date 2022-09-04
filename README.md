@@ -21,7 +21,7 @@ I have no idea how you would do any of this on Windows.
 **Tech stuff:**  
 Client is HTML SCSS and JS. There is a webpack server for local development.  
 Server side is an Express app being served by an http server. In production the Express app serves the static client build (built from webpack).  
-This is set up to use a local Postgres server in development mode and in prod uses Heroku Postgres.
+This is set up to use a local Postgres server in development mode and in ~~prod uses Heroku Postgres~~ Railway.app Postgres. Deployment is achieved with docker and Railway.app. 
 
 Client and Server communicate via GraphQL.  
 Socket.IO is used to notify concurrent user clients when new rumors are posted.
