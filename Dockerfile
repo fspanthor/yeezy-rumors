@@ -6,7 +6,7 @@ RUN cd client && npm install && npm run build
 FROM node:16 AS server-build
 WORKDIR /usr/src/app
 ENV NODE_ENV='production'
-COPY --from=ui-build /client/public ./client/public
+COPY --from=ui-build /usr/src/app/client/public ./usr/src/app/client/public
 COPY server ./server/
 RUN cd server && npm install
 
